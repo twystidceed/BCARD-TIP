@@ -20,7 +20,7 @@ logger = logging.getLogger("bot-wallet")
 
 
 def connect():
-    return AuthServiceProxy("http://%s:%s@127.0.0.1:8332" % (rpc_user, rpc_password))
+    return AuthServiceProxy("http://%s:%s@127.0.0.1:48451" % (rpc_user, rpc_password))
 
 
 def create_or_fetch_user(user_id, user_name):
