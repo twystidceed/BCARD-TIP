@@ -194,8 +194,9 @@ def setup_bot():
 
 bot_features = setup_bot()
 
-
-async def handle_message(message):
+@asyncio.coroutine
+#async def handle_message(message):
+def handle_message(message):
     features = [f for f in bot_features for c in f.command_keywords if c in message.content]
     if len(features) == 1:
         feat = features[0]
