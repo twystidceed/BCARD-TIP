@@ -238,7 +238,8 @@ def handle_message(message):
                 elif target_user_id == os.environ.get('BOT_ID'):
                     post_response(message, feat.response_templates["cant_tip_bot"])
                 else:
-                    target_user = await client.get_user_info(target_user_id)
+                    #target_user = await client.get_user_info(target_user_id)
+					target_user = yield from client.get_user_info(target_user_id)
                     wallet.make_transaction_to_user(message.author.id, amount, target_user.id, target_user.name)
                     try:
                         asyncio.get_event_loop().create_task(
@@ -324,25 +325,31 @@ def post_response(message, response_list, *args):
 
 async def react_to_message(message, level):
     if level == 1:
-        await client.add_reaction(message, '\U0001F44D')   # thumbs up
+        #await client.add_reaction(message, '\U0001F44D')   # thumbs up
+		yield from client.add_reaction(message, '\U0001F44D')   # thumbs up
     elif level == 2:
-        await client.add_reaction(message, '\U0001F44F')   # clap
+        #await client.add_reaction(message, '\U0001F44F')   # clap
+		yield from client.add_reaction(message, '\U0001F44F')   # clap
     elif level == 3:
-        await client.add_reaction(message, '\U0001F633')   # flushed
+        #await client.add_reaction(message, '\U0001F633')   # flushed
+		yield from client.add_reaction(message, '\U0001F633')   # flushed
 
 
 async def post_dm(user_id, text_list, *args):
     text = random.choice(text_list) % tuple(args)
     logger.info("sending dm: '%s' to user: %s", text, user_id)
-    await client.send_message(await client.get_user_info(user_id), text)
+    #await client.send_message(await client.get_user_info(user_id), text)
+	yield from client.send_message(yield from client.get_user_info(user_id), text)
 
 
 async def check_for_deposit():
     try:
-        await asyncio.sleep(DEPOSIT_CHECK_JOB)
+        #await asyncio.sleep(DEPOSIT_CHECK_JOB)
+		yield from asyncio.sleep(DEPOSIT_CHECK_JOB)
         results = wallet.parse_incoming_transactions()
         for result in results:
-            await post_dm(result[0], general_responses[result[1]], result[2])
+            #await post_dm(result[0], general_responses[result[1]], result[2])
+			yield from post_dm(result[0], general_responses[result[1]], result[2])
         asyncio.get_event_loop().create_task(check_for_deposit())
     except Exception as ex:
         logger.exception(ex)
@@ -361,8 +368,10 @@ async def on_message(message):
         try:
             if not message.channel.is_private:
                 message.content = message.content.replace(AT_BOT, '', 1)
-            await client.send_typing(message.channel)
-            await handle_message(message)
+            #await client.send_typing(message.channel)
+			yield from client.send_typing(message.channel)
+            #await handle_message(message)
+			yield from handle_message(message)
         except socket_error as serr:
             if serr.errno != errno.ECONNREFUSED:
                 raise serr
