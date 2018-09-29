@@ -2,7 +2,7 @@ import datetime
 import logging
 from peewee import *
 
-db = SqliteDatabase('ztipbot.db')
+db = SqliteDatabase('bcard.db')
 
 logging.basicConfig(filename='bot.log', level=logging.INFO)
 
