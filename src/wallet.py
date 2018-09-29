@@ -11,7 +11,7 @@ logging.basicConfig(filename='bot.log', level=logging.INFO)
 MIN_CONFIRMATIONS_FOR_DEPOSIT = 2
 
 TOP_USERS_COUNT = 10
-
+#dont forget to set the variables - you need to match this to the conf file on the vps server
 rpc_user = os.environ.get("RPC_USER")
 rpc_password = os.environ.get("RPC_PASSWORD")
 
