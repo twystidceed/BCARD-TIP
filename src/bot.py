@@ -14,7 +14,7 @@ import util
 logging.basicConfig(filename='bot.log', level=logging.INFO)
 
 logger = logging.getLogger("bot-main")
-
+#bot ID  - tossing errors - maybe change to old style of coding my bots
 AT_BOT = "<@" + os.environ.get('494029842543804416') + ">"
 
 BOT_VERSION = "1"
@@ -44,11 +44,7 @@ general_responses = {
     "new_deposit_unconfirmed":
         [
             "I received a new deposit (%.3f BCARD) :ok_hand: Waiting for 1 more confirmation" +
-            " before you can start using the coins. I will let you know when your funds are confirmed.",
-            "I got the %.3f BCARD you sent me :ok_hand: Just waiting for a confirmation. " +
-            "I'll send you a message when that happens.",
-            "Wow ! I got %.3f BCARD from you. Wait a moment so I receive one confirmation. " +
-            "I'll tell you when your coins are confirmed."
+            " before you can start using the coins. I will let you know when your funds are confirmed."
         ],
     "new_deposit_confirmed":
         [
@@ -69,7 +65,7 @@ def setup_bot():
                               response_templates=
                               {"success": [
                                   "BCARD-TipBot v%s - BCARD tip bot for Discord \n" +
-                                  "Developed by <@109530829557903360> - feel free to give me feedback \n" +
+                                  "Developed by <@109530829557903360> \n" +
                                   "\n" +
                                   ":card: You can tag me in a channel or send me a direct message"
                                   " to engage with me. \n\n"
@@ -134,14 +130,12 @@ def setup_bot():
                                  ":ok_hand: Tipped !",
                                  "Done."
                              ], "amount_not_found": [
-                                 "I couldn't find the amount in your message :cry: ",
                                  "Don't know how much to tip."
                              ], "user_not_found": [
                                  "Don't know who you want to tip. :thinking: ",
-                                 "I couldn't find who you want to tip in your message :cry: "
+                                 "I couldn't find who you want to tip in your message! "
                              ], "insufficient_funds": [
-                                 "You don't have enough coins to tip that much! ",
-                                 "Insufficient funds! Consider depositing more coins."
+                                 "You don't have enough coins to tip that much! "
                              ], "error": [
                                  "Something went wrong with the tip. Error logged. "
                              ], "tip_received": [
@@ -150,8 +144,7 @@ def setup_bot():
                              ], "cant_tip_yourself": [
                                  "You can't tip yourself !"
                              ], "cant_tip_bot": [
-                                 "You can't tip me !",
-                                 "Thanks ... but I can't accept that! "
+                                 "You can't tip me !"
                              ]})
 
     withdraw_feature = BotFeature(command="WITHDRAW",
