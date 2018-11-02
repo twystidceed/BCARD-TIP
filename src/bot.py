@@ -357,4 +357,4 @@ async def on_message(message):
             post_response(message, general_responses["wallet_down"])
 
 
-client.run(os.environ.get("NDk0MDI5ODQyNTQzODA0NDE2.DotlTQ.fS4kaB7cSjBYR_PrwJMh0aZkZRU"))
+client.run(os.environ.get(""))
